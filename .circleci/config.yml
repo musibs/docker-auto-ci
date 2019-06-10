@@ -29,7 +29,8 @@ jobs:
   deploy:
     machine: true
     steps:
-     - run: $DOCKER_HUB_CI
+     - run: curl -H "Content-Type:application/json" -data '{"build":true}' -X POST https://cloud.docker.com/api/build/v1/source/1f484be9-008b-46b6-846d-72d274dba291/trigger/7e227a54-da18-491f-8ebb-700d7cddf55e/call/ 
+
 workflows:
   version: 2
   build-and-deploy:
