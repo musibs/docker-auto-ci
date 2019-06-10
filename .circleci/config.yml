@@ -12,9 +12,9 @@ version: 2
 jobs:
   build:
     environment:
-      IMAGE_NAME: musibs / docker_auto_ci
+      IMAGE_NAME: musibs/docker_auto_ci
     docker:
-      - image: musibs / docker_auto_ci
+      - image: musibs/docker_auto_ci
     steps:
       - checkout
       - setup_remote_docker
