@@ -11,16 +11,9 @@
 version: 2
 jobs:
   build:
-    environment:
-      IMAGE_NAME: musibs/docker_auto_ci
-    docker:
-      - image: musibs/docker_auto_ci
+    machine: true
     steps:
       - checkout
-      - setup_remote_docker
-      - run:
-          name: Build Docker Image
-          command: docker build -t $IMAGE_NAME:latest
       - run: npm install
       - run: npm install supertest --save-dev
       - run: mkdir ~/junit
@@ -32,13 +25,8 @@ jobs:
       - store_test_results:
           path: ~/junit
       - store_artifacts:
-          path: ~/junit 
-workflows:
-  version: 2
-  build-master:
-    jobs:
-      - build:
-          filters:
-            branches:
-              only: master
-
+          path: ~/junit
+  deploy:
+    machine: true
+    steps:
+     - run: $DOCKER_HUB_CI 
