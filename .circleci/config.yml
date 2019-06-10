@@ -1,0 +1,28 @@
+# The deployment section should be excluded until
+# it is explicitly included in module 5
+
+#deployment:
+#  dockerhub:
+#    branch: master
+#    commands:
+#      - $DOCKER_HUB_TRIGGER
+#
+#
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm install supertest --save-dev
+      - run: mkdir ~/junit
+      - run:
+          command: npm run test
+          environment:
+            MOCHA_FILE: ~/junit/test-results.xml
+          when: always
+      - store_test_results:
+          path: ~/junit
+      - store_artifacts:
+          path: ~/junit 
