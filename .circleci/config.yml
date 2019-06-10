@@ -29,4 +29,15 @@ jobs:
   deploy:
     machine: true
     steps:
-     - run: $DOCKER_HUB_CI 
+     - run: $DOCKER_HUB_CI
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master 
